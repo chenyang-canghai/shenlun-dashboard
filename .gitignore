@@ -1,0 +1,6 @@
+.deploy_token
+.git
+deploy_github.sh
+deploy_vercel.sh
+update_and_deploy.sh
+*.png
