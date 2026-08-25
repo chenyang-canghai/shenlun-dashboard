@@ -128,7 +128,10 @@ function renderToday(){
   const maxN = Math.max(1,...heatArr.map(x=>x.n));
   const heatHtml = heatArr.some(x=>x.n>0)
     ? `<div class="sec-head"><h2>本周主题热度</h2></div>
-       <div class="heat-list">${heatArr.map(x=>`<div class="heat-row"><span class="nm">${x.name}</span><span class="track"><span class="fill" data-w="${(x.n/maxN*100).toFixed(0)}%" style="width:0;background:${thColor(x.name)}">${x.n>0?x.n+'条':''}</span></span><span class="cnt">${x.n} 条</span></div>`).join('')}</div>`
+       <div class="heat-list">${heatArr.map(x=>{
+         const op = 0.4 + (x.n/maxN)*0.6;
+         return `<div class="heat-row"><span class="nm">${x.name}</span><span class="track"><span class="fill" data-w="${(x.n/maxN*100).toFixed(0)}%" style="width:0;opacity:${op.toFixed(2)}">${x.n>0?x.n+'条':''}</span></span><span class="cnt">${x.n} 条</span></div>`;
+       }).join('')}</div>`
     : '';
 
   $('#todayContent').innerHTML = focusHtml + evHtml + writemeHtml + quoteHtml + dataHtml + heatHtml;
