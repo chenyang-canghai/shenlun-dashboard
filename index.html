@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-<title>申论素材看板</title>
-<meta name="description" content="每日申论素材与热点一站式备考看板 · 六主题 × 金句 × 时政热点 × 深度笔记">
-<meta name="theme-color" content="#0c121e">
+<title>申论每日晨报 · 看板</title>
+<meta name="description" content="每日人民日报热点 · 六大主题素材库 · 申论金句与数据 · 备考资料中心">
+<meta name="theme-color" content="#0e1422">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.json">
@@ -15,68 +15,62 @@
 <body>
 <div class="wrap">
 
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">📚</div>
-      <div>
-        <h1>申论素材看板</h1>
-        <div class="sub">六主题 · 每日热点 · 深度笔记</div>
-      </div>
-    </div>
-    <div class="topmeta">
-      <span class="pill" id="updatePill"></span>
-      <button id="installBtn" class="pill" style="cursor:pointer;display:none">📱 添加到桌面</button>
-    </div>
+  <!-- 报头 -->
+  <header class="masthead">
+    <h1>申论晨报</h1>
+    <div class="date" id="mastheadDate">-</div>
   </header>
 
-  <nav class="nav" id="nav">
-    <button data-sec="overview" class="active">概览</button>
-    <button data-sec="daily">每日热点</button>
-    <button data-sec="library">主题库</button>
-    <button data-sec="notes">深度笔记</button>
-    <button data-sec="search">🔍 检索</button>
-  </nav>
-
-  <!-- 概览 -->
-  <div class="section active" id="sec-overview">
-    <div class="sec-head"><h2>📊 备考概览</h2><p>数据实时聚合于你的素材库</p></div>
-    <div class="stats" id="stats"></div>
-    <div class="dist"><h3>六大主题素材分布</h3><div id="dist"></div></div>
-    <div class="sec-head"><h2>🔥 最新每日热点</h2></div>
-    <div id="latestDaily"></div>
-    <div class="sec-head"><h2>📝 最近深度笔记</h2></div>
-    <div id="latestNotes"></div>
+  <!-- 顶部状态条 -->
+  <div class="topbar">
+    <span>累计 <b id="totalCount">-</b> 条 · <b id="themeCount">-</b> 主题</span>
+    <span><b id="updatePill">-</b> 更新</span>
+    <button id="installBtn" style="display:none">添加到桌面</button>
   </div>
 
-  <!-- 每日热点 -->
-  <div class="section" id="sec-daily">
-    <div class="sec-head"><h2>📆 每日素材与热点时间线</h2><p>点击主题查看金句/政策/案例/数据</p></div>
-    <div class="tl" id="dailyList"></div>
+  <!-- 【今日】 -->
+  <div class="section active" id="sec-today">
+    <div id="todayContent"></div>
   </div>
 
-  <!-- 主题库 -->
-  <div class="section" id="sec-library">
-    <div class="sec-head"><h2>🗂 六大主题素材库</h2><p>金句 · 政策 · 案例 · 数据</p></div>
+  <!-- 【主题库】 -->
+  <div class="section" id="sec-themes">
+    <div class="sec-head"><h2>主题素材库</h2></div>
     <div class="grid" id="themeGrid"></div>
   </div>
 
-  <!-- 深度笔记 -->
+  <!-- 【日历】 -->
+  <div class="section" id="sec-calendar">
+    <div class="sec-head"><h2>每日回溯</h2></div>
+    <div class="tl" id="dailyList"></div>
+  </div>
+
+  <!-- 【笔记】 -->
   <div class="section" id="sec-notes">
-    <div class="sec-head"><h2>📓 时政笔记（每日深度解读）</h2></div>
+    <div class="sec-head"><h2>时政笔记</h2></div>
     <div class="tl" id="noteTimeline"></div>
-    <div class="sec-head" style="margin-top:26px"><h2>📜 重要讲话 · 权威表述</h2></div>
+    <div class="sec-head" style="margin-top:28px"><h2>重要讲话</h2></div>
     <div id="speechList"></div>
   </div>
 
-  <!-- 检索 -->
+  <!-- 【搜索】 -->
   <div class="section" id="sec-search">
-    <div class="search"><input id="q" type="search" placeholder="🔍 搜索全部素材，如：三北、家庭医生、政绩观、1.4万亿斤…"></div>
-    <div id="searchCount" style="font-size:12px;color:var(--txt3);margin-bottom:12px"></div>
+    <div class="sec-head"><h2>全库检索</h2></div>
+    <div class="search-box"><input id="q" type="search" placeholder="🔍 搜金句 / 政策 / 数据 / 主题，如：三北、家庭医生、政绩观、1.4万亿斤"></div>
+    <div id="searchCount" style="font-size:12px;color:var(--ink-3);margin-bottom:10px"></div>
     <div id="searchRes"></div>
   </div>
 
-  <footer class="foot">申论素材看板 · 每日自动更新 · 数据来自人民日报/新华社等一手来源</footer>
 </div>
+
+<!-- 底部固定Tab栏 -->
+<nav class="bottom-nav" id="bottomNav">
+  <button data-sec="today" class="active"><span class="ico">📰</span><span>今日</span></button>
+  <button data-sec="themes"><span class="ico">🗂</span><span>主题</span></button>
+  <button data-sec="calendar"><span class="ico">📅</span><span>日历</span></button>
+  <button data-sec="notes"><span class="ico">📓</span><span>笔记</span></button>
+  <button data-sec="search"><span class="ico">🔍</span><span>搜索</span></button>
+</nav>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
